@@ -59,7 +59,7 @@ pivoty = 150
 
 # TODO add trail for first circle too
 trail = []
-trail_length = 24
+trail_length = 60
 
 fontsize = 21
 
@@ -107,11 +107,13 @@ while not endSim:
 
     pygame.draw.line(canvas, off_white, (int(pivotx), int(pivoty)),
                      (int(pivotx + x1 * r1_scale), int(pivoty + y1 * r1_scale)))
-    pygame.draw.circle(canvas, off_white, (int(pivotx + x1 * r1_scale), int(pivoty + y1 * r1_scale)), radius1)
+    pygame.draw.circle(canvas, off_white, (int(pivotx + x1 * r1_scale), 
+                                           int(pivoty + y1 * r1_scale)), radius1)
 
     pygame.draw.line(canvas, off_white, (int(pivotx + x1 * r1_scale), int(pivoty + y1 * r1_scale)),
                      (int(pivotx + x2 * r2_scale), int(pivoty + y2 * r2_scale)))
-    pygame.draw.circle(canvas, off_white, (int(pivotx + x2 * r2_scale), int(pivoty + y2 * r2_scale)), radius2)
+    pygame.draw.circle(canvas, off_white, (int(pivotx + x2 * r2_scale), 
+                                           int(pivoty + y2 * r2_scale)), radius2)
 
     # calculate the accelerations
     num1 = - g * (2 * m1 + m2) * np.sin(angle1)  # -
@@ -138,8 +140,8 @@ while not endSim:
 
     pE = - ((m1 + m2) * g * r1 * np.cos(angle1)) - (m2 * g * r2 * np.cos(angle2))
     kE = ((1 / 2) * m1 * r1 ** 2 * angle1_v ** 2) + ((1 / 2) * m2 *
-                                                     ((r1 ** 2 * angle1_v ** 2) + (r2 ** 2 * angle2_v ** 2) +
-                                                      (2 * r1 * r2 * angle1_v * angle2_v * np.cos(angle1 - angle2))))
+         ((r1 ** 2 * angle1_v ** 2) + (r2 ** 2 * angle2_v ** 2) +
+         (2 * r1 * r2 * angle1_v * angle2_v * np.cos(angle1 - angle2))))
 
     Et = pE + kE
     lagrangian = kE - pE
