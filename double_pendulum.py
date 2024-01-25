@@ -13,6 +13,7 @@ blue = (0, 0, 255)
 green = (0, 255, 0)
 
 magenta = (212, 64, 219)
+hunter_green = (8, 207, 124)
 dark_grey = (28, 28, 28)
 off_white = (237, 237, 237)
 
@@ -59,6 +60,7 @@ pivoty = 150
 
 # TODO add trail for first circle too
 trail = []
+trail_top = []
 trail_length = 60
 
 fontsize = 21
@@ -76,9 +78,9 @@ def printOnScreen(msg, color, size, xcoord, ycoord):
     canvas.blit(text, [xcoord, ycoord])
 
 # TODO draw lines between each circle
-def draw_trail(list):
+def draw_trail(list, color):
     for coord in list:
-        pygame.draw.circle(canvas, magenta, (int(coord[0]), int(coord[1])), 1)
+        pygame.draw.circle(canvas, color, (int(coord[0]), int(coord[1])), 1)
 
 while not endSim:
     for event in pygame.event.get():
@@ -100,10 +102,15 @@ while not endSim:
     if len(trail) >= trail_length:
         trail.remove(trail[0])
     
+    if len(trail_top) >= trail_length:
+        trail_top.remove(trail_top[0])
+
     trail.append(curr_pos)
+    trail_top.append([pivotx + x1 * r1_scale, pivoty + y1 * r1_scale])
 
     # draw the trail
-    draw_trail(trail)
+    draw_trail(trail, magenta)
+    draw_trail(trail_top, hunter_green)
 
     pygame.draw.line(canvas, off_white, (int(pivotx), int(pivoty)),
                      (int(pivotx + x1 * r1_scale), int(pivoty + y1 * r1_scale)))
